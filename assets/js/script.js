@@ -1,8 +1,6 @@
-let weatherUrlApi = 'https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=864118318ed70a271edc09feffa72f3d';
 let searchBtn = document.getElementById('search-btn');
 let searchBox = document.getElementById('city-search');
 let cityName = document.getElementById('city-name');
-let currentId = document.getElementById('current-id');
 let currentConditions = document.getElementById('current-conditions');
 let currentIcon = document.getElementById('current-icon');
 let currentMain = document.getElementById('current-main');
@@ -10,7 +8,10 @@ let currentDesc = document.getElementById('current-desc');
 let currentHumidity = document.getElementById('current-humid');
 let currentTemperature = document.getElementById('current-temp');
 let currentWindSpeed = document.getElementById('current-wind');
-let forecastWeatherBox = document.getElementById('forecast-weather');
+
+
+
+
 
 
 // Function for searching the weather and api
@@ -21,51 +22,57 @@ function weatherSearch(city) {
 
 
     // Fetching the current weather
-    fetch(url)
+    fetch(forecast)
     .then((response) => response.json())
     .then((data) => {
         console.log(data);
+
         // Loading weather data to the browser for current weather
-        cityName.innerHTML = data.name;
-        currentIcon.innerHTML = data.weather.icon;
-        currentId.innerHTML = data.weather.id;
-        currentMain.innerHTML = data.weather.main;
-        currentDesc.innerHTML = "<strong>Current Weather:</strong> " + data.weather.description;
-        currentHumidity.innerHTML = "<strong>Current Humidity:</strong " + data.main.humidity;
-        currentTemperature.innerHTML = "<strong>Current Temperature:</strong> " + data.main.temp;
-        currentWindSpeed.innerHTML = "<strong>Current Wind Speed:</strong " + data.wind.speed;
+        cityName.innerHTML = data.city.name;
+        currentIcon.src = "http://openweathermap.org/img/w/" + data.list[0].weather[0].icon + ".png"; // add weather image to the container
+        currentIcon.style.display = "block"; // display icon once search is clicked
+        currentMain.innerHTML = data.list[0].weather[0].main;
+        currentDesc.innerHTML = "<strong>Current Weather:</strong> " + data.list[0].weather[0].description;
+        currentHumidity.innerHTML = "<strong>Current Humidity:</strong> " + data.list[0].main.humidity;
+        currentTemperature.innerHTML = "<strong>Current Temperature:</strong> " + data.list[0].main.temp + "°";
+        
+        console.log(data);
+        // Loop for the forecast dates 
+        for(i = 1; i <= 5; i++) {
+
+            // forecast api does forecasts every 3 hours.  This variable will select 1 forecast from an array for once a day.
+            let listEl = i * 8 + 1;
+            
+            // if statement to prevent not returning 5th day forecast because listEl variable will return 41 hours for the 3 hour forecast. 
+            if (listEl > data.list.length-1) {
+                listEl = data.list.length-1;
+            }
+            document.getElementById('forecast-main' + i.toString()).innerHTML = data.list[listEl].weather[0].main;
+            document.getElementById('forecast-desc' + i.toString()).innerHTML =  data.list[listEl].weather[0].description;
+            document.getElementById('forecast-humid' + i.toString()).innerHTML = data.list[listEl].main.humidity;
+            document.getElementById('forecast-humid' + i.toString()).innerHTML = "Temp: " + data.list[listEl].main.temp + "°";
+    
+        }
+ 
     })
 
     // logging any errors to the console
     .catch(console.error);  
 
     // fetching the forecast weather 
-    fetch(forecast)
-    .then((response) => response.json())
-    .then((data) => {
-        console.log(data)
-        // Loading weather data to the web browser for forecast weather
-        // forecastWeatherBox.innerHTML = data.name;
-        // forecastWeatherBox.innerHTML = data.weather.id;
-        // forecastWeatherBox.innerHTML = data.weather.main;
-        // forecastWeatherBox.innerHTML = data.weather.description;
-        // forecastWeatherBox.innerHTML = data.weather.icon;
-        // forecastWeatherBox.innerHTML = data.main.humidity;
-        // forecastWeatherBox.innerHTML = data.main.temp;
-        // forecastWeatherBox.innerHTML = data.wind.speed;
-        for(var i = 1; i <= 5; i++){
-            let elName = "forecast" + i.toString();
-            console.log(elName);
-           let day = document.getElementById('forecast' + i.toString()); 
-           console.log(day);
-           day.textContent = "day" + i.toString();
+    // fetch(forecast)
+    // .then((response) => response.json())
+    // .then((data) => {
+    //     console.log(data)
+    //     for(var i = 1; i <= 5; i++){
 
-        }
 
-    })
+    //     }
+
+    }//)
     // log any error that would occur during fetch to the console
-    .catch(console.error);
-}
+//     .catch(console.error);
+// }
 
 
 
