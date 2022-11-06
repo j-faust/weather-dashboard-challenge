@@ -10,10 +10,6 @@ let currentTemperature = document.getElementById('current-temp');
 let currentWindSpeed = document.getElementById('current-wind');
 
 
-
-
-
-
 // Function for searching the weather and api
 function weatherSearch(city) {
     let apiKey = "864118318ed70a271edc09feffa72f3d";
@@ -41,12 +37,12 @@ function weatherSearch(city) {
         for(i = 1; i <= 5; i++) {
 
             // forecast api does forecasts every 3 hours.  This variable will select 1 forecast from an array for once a day.
-            let listEl = i * 8 + 1;
+            let listEl = i * 8 - 1;
             
-            // if statement to prevent not returning 5th day forecast because listEl variable will return 41 hours for the 3 hour forecast. 
-            if (listEl > data.list.length-1) {
-                listEl = data.list.length-1;
-            }
+            console.log(listEl);
+            console.log(new Date(data.list[listEl].dt * 1000));
+            let dateDay = getDayName(data.list[listEl].dt);
+            document.getElementById('forecast-date' + i.toString()).innerHTML = dateDay;
             document.getElementById('forecast-main' + i.toString()).innerHTML = data.list[listEl].weather[0].main;
             document.getElementById('forecast-desc' + i.toString()).innerHTML =  data.list[listEl].weather[0].description;
             document.getElementById('forecast-humid' + i.toString()).innerHTML = data.list[listEl].main.humidity;
@@ -59,20 +55,7 @@ function weatherSearch(city) {
     // logging any errors to the console
     .catch(console.error);  
 
-    // fetching the forecast weather 
-    // fetch(forecast)
-    // .then((response) => response.json())
-    // .then((data) => {
-    //     console.log(data)
-    //     for(var i = 1; i <= 5; i++){
-
-
-    //     }
-
-    }//)
-    // log any error that would occur during fetch to the console
-//     .catch(console.error);
-// }
+    }
 
 
 
@@ -83,6 +66,14 @@ function buttonClick() {
 
 // Event listener to call the function buttonClick to get the required data
 searchBtn.addEventListener('click', buttonClick);
+
+// Convert unix date from Weather API toDay of the week to display on forecast cards
+function getDayName(unixDate) {
+    const dayNames  = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    const dayNum = new Date(unixDate * 1000).getDay()
+    
+        return dayNames[dayNum];
+    }
 
 
 
