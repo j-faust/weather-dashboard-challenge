@@ -8,14 +8,14 @@ let currentDesc = document.getElementById('current-desc');
 let currentHumidity = document.getElementById('current-humid');
 let currentTemperature = document.getElementById('current-temp');
 let currentWindSpeed = document.getElementById('current-wind');
+let cityList = [];
 
 
 // Function for searching the weather and api
 function weatherSearch(city) {
     let apiKey = "864118318ed70a271edc09feffa72f3d";
-    let url = 'https://api.openweathermap.org/data/2.5/weather?q='+city+'&units=imperial&appid=864118318ed70a271edc09feffa72f3d';
     let forecast = 'https://api.openweathermap.org/data/2.5/forecast?q='+city+'&units=imperial&appid=864118318ed70a271edc09feffa72f3d';
-
+    
 
     // Fetching the current weather
     fetch(forecast)
@@ -36,20 +36,25 @@ function weatherSearch(city) {
         // Loop for the forecast dates 
         for(i = 1; i <= 5; i++) {
 
-            // forecast api does forecasts every 3 hours.  This variable will select 1 forecast from an array for once a day.
+            // forecast api does forecasts every 3 hours.  This variable will select 1 forecast from the array for once a day.
             let listEl = i * 8 - 1;
-            
-            console.log(listEl);
-            console.log(new Date(data.list[listEl].dt * 1000));
+            //convert the unix date to the day of the week variable to be input to innerHTML to load forecasted days
             let dateDay = getDayName(data.list[listEl].dt);
+            document.getElementById('forecast-icon' + i.toString()).src = "http://openweathermap.org/img/w/" + data.list[listEl].weather[0].icon + ".png"; // add weather image to the container
+            document.getElementById('forecast-icon' + i.toString()).style.display = "block"; // display icon once search is clicked
             document.getElementById('forecast-date' + i.toString()).innerHTML = dateDay;
             document.getElementById('forecast-main' + i.toString()).innerHTML = data.list[listEl].weather[0].main;
             document.getElementById('forecast-desc' + i.toString()).innerHTML =  data.list[listEl].weather[0].description;
-            document.getElementById('forecast-humid' + i.toString()).innerHTML = data.list[listEl].main.humidity;
+            document.getElementById('forecast-humid' + i.toString()).innerHTML = "Humidity: " + data.list[listEl].main.humidity;
             document.getElementById('forecast-humid' + i.toString()).innerHTML = "Temp: " + data.list[listEl].main.temp + "°";
     
         }
- 
+    cityList.unshift(data.city.name);
+    console.log(cityList)
+    localStorage.setItem('weatherCities', JSON.stringify(cityList))
+    loadCities();
+
+
     })
 
     // logging any errors to the console
@@ -76,5 +81,31 @@ function getDayName(unixDate) {
     }
 
 
+function loadCities() {
+
+    for(i = 0; i <= 5; i++) {
+        if(cityList[i]) {
+            document.getElementById('btn' + i.toString()).textContent = cityList[i];
+            document.getElementById('btn' + i.toString()).style.display = 'block';
+           
+        }   
+        else {
+            document.getElementById('btn' + i.toString()).style.display = 'none';
+        }
+    }    
+}
 
 
+function buttonClickHistory(e) {
+    let cityName = e.innerHTML;    
+    weatherSearch(cityName);
+}
+
+function reloadToCityList() {
+    let cityTextList = localStorage.getItem('weatherCities');
+    cityList = JSON.parse(cityTextList);
+    loadCities();
+
+}
+console.log(reloadToCityList);
+window.onload = reloadToCityList();
