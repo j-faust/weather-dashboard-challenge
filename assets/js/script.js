@@ -9,6 +9,7 @@ let currentHumidity = document.getElementById('current-humid');
 let currentTemperature = document.getElementById('current-temp');
 let currentWindSpeed = document.getElementById('current-wind');
 let cityList = [];
+let curWeatherDate = document.getElementById('curr-date');
 
 
 // Function for searching the weather and api
@@ -25,6 +26,7 @@ function weatherSearch(city) {
 
         // Loading weather data to the browser for current weather
         cityName.innerHTML = data.city.name;
+        curWeatherDate.innerHTML = new Date();
         currentIcon.src = "http://openweathermap.org/img/w/" + data.list[0].weather[0].icon + ".png"; // add weather image to the container
         currentIcon.style.display = "block"; // display icon once search is clicked
         currentMain.innerHTML = data.list[0].weather[0].main;
@@ -49,10 +51,10 @@ function weatherSearch(city) {
             document.getElementById('forecast-humid' + i.toString()).innerHTML = "Temp: " + data.list[listEl].main.temp + "°";
     
         }
-    cityList.unshift(data.city.name);
-    console.log(cityList)
-    localStorage.setItem('weatherCities', JSON.stringify(cityList))
-    loadCities();
+    // Coding to store the last searched city to the recently viewed list
+    cityList.unshift(data.city.name); // Will take the latest searched city and move it to beginning of the array
+    localStorage.setItem('weatherCities', JSON.stringify(cityList)) // storing list of recently viewed cities in localStorage
+    loadCities(); // calling function to load cities into list container
 
 
     })
@@ -80,32 +82,36 @@ function getDayName(unixDate) {
         return dayNames[dayNum];
     }
 
-
+// Function that will take items and load them into the list for recently viewed cities
 function loadCities() {
 
+    // for loop that will go through and display the recently viewed cities as a button 
     for(i = 0; i <= 5; i++) {
         if(cityList[i]) {
             document.getElementById('btn' + i.toString()).textContent = cityList[i];
             document.getElementById('btn' + i.toString()).style.display = 'block';
            
         }   
+        // if there is no recently viewed cities then the list will not display a button
         else {
             document.getElementById('btn' + i.toString()).style.display = 'none';
         }
     }    
 }
 
-
+// Function for buttons on the recently viewed city list card that when clicked will redirect the user to the weather for that city.
 function buttonClickHistory(e) {
     let cityName = e.innerHTML;    
     weatherSearch(cityName);
 }
 
+// function that takes cities from the local storage and loads the most recent ones to the webpage
 function reloadToCityList() {
     let cityTextList = localStorage.getItem('weatherCities');
     cityList = JSON.parse(cityTextList);
     loadCities();
 
 }
-console.log(reloadToCityList);
+
+// Calls the reloadCityList function to load the recently viewed cities on page load.
 window.onload = reloadToCityList();

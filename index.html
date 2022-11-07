@@ -15,7 +15,8 @@
 <div class="container-fluid row">
     <nav class="navbar bg-light">
         <div class="container-fluid mb-3">
-          <a class="navbar-brand">Weather Dashboard</a>
+          <!-- Navbar with Search box to search weather -->
+          <a href="#" class="navbar-brand" id="dashboard-text">Weather Dashboard</a>
           <form class="d-flex" role="search">
             <input class="form-control me-2" type="search" placeholder="Search for City" aria-label="Search" id="city-search">
             <button class="btn btn-outline-success" id="search-btn" type="button">Search</button>
@@ -24,7 +25,8 @@
       </nav>
       <div class="row display:inline">
       <div class="card border-light mb-3" style="max-width: 18rem;">
-        <div class="card-header">Recently Viewed Cities</div>
+        <!-- Container to display recently searched location with button to click to bring back weather for that location -->
+        <div class="card-header" id="recently-viewed-text">Recently Viewed Cities</div>
         <div class="card-body">
           <ul class="list-group list-group-flush row">
             <li class="list-group-item col-md-12"><button type="button" class="btn btn-secondary" id="btn0" onclick="buttonClickHistory(this)" style="display:none"></button></li>
@@ -37,11 +39,12 @@
         </div>
       </div>
       <div class="card col-md-9">
-        <div class="card-header">
+        <div class="card-header" id="current-condition-text">
           Current Weather Conditions
         </div>
+        <!-- Container to display the current weather conditions -->
         <div class="card-body" id="current-weather">
-          <h5 class="card-title" id="city-name">Search for weather!</h5>
+          <h5 class="card-title" id="city-name">Search for weather!</h5><h6 id="curr-date"></h6>
           <p class="card-text"><img src"" id="current-icon" alt="Weather Icon" style="display:none"></p>
           <p class="card-text" id="current-conditions"></p>
           <p class="card-text" id="current-main"></p>
@@ -53,7 +56,8 @@
       </div>
       <div class="row display:block">
         <div class="col-md-2">
-          <div class="card">
+          <div class="card ">
+            <!-- container to display the forecasted weather for the locations -->
             <div class="card-body">
               <h5 class="card-title" id="forecast-date1">Forecasted Weather</h5>
               <p class="card-text"><img src="" id="forecast-icon1" alt="Weather Icon" style="display:none"></p>

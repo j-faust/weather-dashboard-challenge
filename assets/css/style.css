@@ -2,3 +2,14 @@
     font-family: 'Quicksand', sans-serif;
 }
 
+#dashboard-text {
+    font-size: 35px;
+}
+
+#current-condition-text {
+    font-size: 22px;
+}
+
+#recently-viewed-text {
+    font-size: 22px;
+}
