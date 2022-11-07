@@ -42,7 +42,7 @@ The purpose of this Weather Dashboard App is develop an application that can giv
 ## Links
 [GitHub](https://github.com/j-faust/weather-dashboard-challenge)
 
-[Weather Dashboard App]()
+[Weather Dashboard App](https://j-faust.github.io/weather-dashboard-challenge)
 
 ## Screenshots
 

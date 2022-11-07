@@ -1,15 +1,19 @@
+/* setting font family for webpage */
 * {
     font-family: 'Quicksand', sans-serif;
 }
 
+/* setting font size for Navbar text */
 #dashboard-text {
     font-size: 35px;
 }
 
+/* setting font size for current weather container title */
 #current-condition-text {
     font-size: 22px;
 }
 
+/* setting font size for recently viewed container title */
 #recently-viewed-text {
     font-size: 22px;
 }
