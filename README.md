@@ -17,7 +17,9 @@ The purpose of this Weather Dashboard App is develop an application that can giv
 ## CSS
 * Bootstrap styling used for most layout of the page for the Navbard, Cards and Card list.
 
-* CSS Styling used to select the font loaded from Google Fonts for the webpage
+* CSS Styling used to select the font loaded from Google Fonts for the webpage.
+
+* Adjusted margins for spacing on the webpage and added box shadows for styling to each card on the page.
 
 * Adjusted the font size for the container cards for 'Recently Viewed Cities' and 'Current Weather Conditions'.  Navbar also has adjusted font size for 'Weather Dasboard' text at the top of page. 
 
@@ -45,4 +47,12 @@ The purpose of this Weather Dashboard App is develop an application that can giv
 [Weather Dashboard App](https://j-faust.github.io/weather-dashboard-challenge)
 
 ## Screenshots
+
+![Weather Dashboard Screenshot1](./jmages/weather1.png)
+
+![Weather Dashboard Screenshot2](./jmages/weather2.png)
+
+![Weather Dashboard Screenshot3](./jmages/weather3.png)
+
+![Weather Dashboard Screenshot4](./jmages/weather4.png)
 

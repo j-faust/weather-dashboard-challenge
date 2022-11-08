@@ -41,6 +41,8 @@ function weatherSearch(city) {
         "<strong>Current Humidity:</strong> " + data.list[0].main.humidity;
       currentTemperature.innerHTML =
         "<strong>Current Temperature:</strong> " + data.list[0].main.temp + "°";
+        currentWindSpeed.innerHTML =
+        "<strong>Current Windspeed:</strong> " + data.list[0].wind.speed + "mph";
 
       console.log(data);
       // Loop for the forecast dates
@@ -61,9 +63,11 @@ function weatherSearch(city) {
           data.list[listEl].weather[0].main;
         document.getElementById("forecast-desc" + i.toString()).innerHTML =
           data.list[listEl].weather[0].description;
+        document.getElementById("forecast-wind" + i.toString()).innerHTML =
+          "Wind: " + data.list[listEl].wind.speed + "mph";
         document.getElementById("forecast-humid" + i.toString()).innerHTML =
-          "Humidity: " + data.list[listEl].main.humidity;
-        document.getElementById("forecast-humid" + i.toString()).innerHTML =
+        "Humidity: " + data.list[listEl].main.humidity;
+        document.getElementById("forecast-temp" + i.toString()).innerHTML =
           "Temp: " + data.list[listEl].main.temp + "°";
       }
       // Coding to store the last searched city to the recently viewed list
@@ -136,5 +140,5 @@ function reloadToCityList() {
   loadCities();
 }
 
-// Calls the reloadCityList function to load the recently viewed cities on page load.
+// Calls the reloadCityList function to load the recently viewed cities on page load from localStorage.
 window.onload = reloadToCityList();

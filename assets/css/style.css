@@ -3,6 +3,12 @@
     font-family: 'Quicksand', sans-serif;
 }
 
+/* Box styling for top cards and bottom cards */
+.top-container,
+.bottom-container {
+    box-shadow: 7px 17px 19px -19px rgba(0,0,0,0.55);
+}
+
 /* setting font size for Navbar text */
 #dashboard-text {
     font-size: 35px;
