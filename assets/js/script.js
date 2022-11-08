@@ -38,7 +38,7 @@ function weatherSearch(city) {
         "<strong>Current Weather:</strong> " +
         data.list[0].weather[0].description;
       currentHumidity.innerHTML =
-        "<strong>Current Humidity:</strong> " + data.list[0].main.humidity;
+        "<strong>Current Humidity:</strong> " + data.list[0].main.humidity + "%";
       currentTemperature.innerHTML =
         "<strong>Current Temperature:</strong> " + data.list[0].main.temp + "°";
         currentWindSpeed.innerHTML =
@@ -66,7 +66,7 @@ function weatherSearch(city) {
         document.getElementById("forecast-wind" + i.toString()).innerHTML =
           "Wind: " + data.list[listEl].wind.speed + "mph";
         document.getElementById("forecast-humid" + i.toString()).innerHTML =
-        "Humidity: " + data.list[listEl].main.humidity;
+        "Humidity: " + data.list[listEl].main.humidity + "%";
         document.getElementById("forecast-temp" + i.toString()).innerHTML =
           "Temp: " + data.list[listEl].main.temp + "°";
       }
