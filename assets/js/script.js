@@ -40,9 +40,9 @@ function weatherSearch(city) {
       currentHumidity.innerHTML =
         "<strong>Current Humidity:</strong> " + data.list[0].main.humidity + "%";
       currentTemperature.innerHTML =
-        "<strong>Current Temperature:</strong> " + data.list[0].main.temp + "°";
+        "<strong>Current Temperature:</strong> " + data.list[0].main.temp.toFixed(0) + "°";
         currentWindSpeed.innerHTML =
-        "<strong>Current Windspeed:</strong> " + data.list[0].wind.speed + "mph";
+        "<strong>Current Windspeed:</strong> " + data.list[0].wind.speed.toFixed(0) + "mph";
 
       console.log(data);
       // Loop for the forecast dates
@@ -64,14 +64,19 @@ function weatherSearch(city) {
         document.getElementById("forecast-desc" + i.toString()).innerHTML =
           data.list[listEl].weather[0].description;
         document.getElementById("forecast-wind" + i.toString()).innerHTML =
-          "Wind: " + data.list[listEl].wind.speed + "mph";
+          "Wind: " + data.list[listEl].wind.speed.toFixed(0) + "mph";
         document.getElementById("forecast-humid" + i.toString()).innerHTML =
         "Humidity: " + data.list[listEl].main.humidity + "%";
         document.getElementById("forecast-temp" + i.toString()).innerHTML =
-          "Temp: " + data.list[listEl].main.temp + "°";
+          "Temp: " + data.list[listEl].main.temp.toFixed(0) + "°";
       }
       // Coding to store the last searched city to the recently viewed list
-      cityList.unshift(data.city.name); // Will take the latest searched city and move it to beginning of the array
+
+      // if city is not equal to the city in the first list it will add it to the recently viewed list
+      if(cityList[0] !== data.city.name) {
+        cityList.unshift(data.city.name); // Will take the latest searched city and move it to beginning of the array
+      }
+      
 
       // storing list of recently viewed cities in localStorage
       localStorage.setItem("weatherCities", JSON.stringify(cityList));
