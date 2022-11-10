@@ -74,7 +74,7 @@ function weatherSearch(city) {
       // Coding to store the last searched city to the recently viewed list
 
       // if city is not equal to the city in the first list it will add it to the recently viewed list
-      if(cityList[0] !== data.city.name) {
+      if(cityList.length == 0 || cityList[0] !== data.city.name) {
         cityList.unshift(data.city.name); // Will take the latest searched city and move it to beginning of the array
       }
    
@@ -135,7 +135,9 @@ function buttonClickHistory(e) {
 // function that takes cities from the local storage and loads the most recent ones to the webpage
 function reloadToCityList() {
   let cityTextList = localStorage.getItem("weatherCities");
+
   cityList = JSON.parse(cityTextList);
+
   loadCities();
 }
 
