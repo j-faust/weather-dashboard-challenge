@@ -50,15 +50,16 @@ function weatherSearch(city) {
         // forecast api does forecasts every 3 hours.  This variable will select 1 forecast from the array for once a day.
         let listEl = i * 8 - 1;
         //convert the unix date to the day of the week variable to be input to innerHTML to load forecasted days
-        let dateDay = getDayName(data.list[listEl].dt);
+        let monthDate = getMonthDate(data.list[listEl].dt);
+        console.log("monthdate="+monthDate);
         document.getElementById("forecast-icon" + i.toString()).src =
           "http://openweathermap.org/img/w/" +
           data.list[listEl].weather[0].icon +
           ".png"; // add weather image to the container
         document.getElementById("forecast-icon" + i.toString()).style.display =
           "block"; // display icon once search is clicked
-        document.getElementById("forecast-date" + i.toString()).innerHTML =
-          dateDay;
+        document.getElementById("forecast-m-d" + i.toString()).innerHTML = 
+          monthDate;
         document.getElementById("forecast-main" + i.toString()).innerHTML =
           data.list[listEl].weather[0].main;
         document.getElementById("forecast-desc" + i.toString()).innerHTML =
@@ -76,7 +77,7 @@ function weatherSearch(city) {
       if(cityList[0] !== data.city.name) {
         cityList.unshift(data.city.name); // Will take the latest searched city and move it to beginning of the array
       }
-      
+   
 
       // storing list of recently viewed cities in localStorage
       localStorage.setItem("weatherCities", JSON.stringify(cityList));
@@ -97,22 +98,15 @@ function buttonClick() {
 // Event listener to call the function buttonClick to get the required data
 searchBtn.addEventListener("click", buttonClick);
 
-// Convert unix date from Weather API toDay of the week to display on forecast cards
-function getDayName(unixDate) {
-  // array of week day names
-  const dayNames = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
-  // converting unix date to day of week
-  const dayNum = new Date(unixDate * 1000).getDay();
+// convert time to day and date for future forecast
+function getMonthDate(unixDate) {
+  let getDate = new Date(unixDate * 1000);
+console.log(getDate);
+  let displayMD = getDate.toDateString();
 
-  return dayNames[dayNum];
+  console.log(displayMD);
+ 
+  return displayMD;
 }
 
 // Function that will take items and load them into the list for recently viewed cities

@@ -48,11 +48,5 @@ The purpose of this Weather Dashboard App is develop an application that can giv
 
 ## Screenshots
 
-![Weather Dashboard Screenshot1](./jmages/weather1.png)
-
-![Weather Dashboard Screenshot2](./jmages/weather2.png)
-
-![Weather Dashboard Screenshot3](./jmages/weather3.png)
-
-![Weather Dashboard Screenshot4](./jmages/weather4.png)
+![Weather Dashboard Screenshot1](./jmages/weatherwebpage1.png)
 
