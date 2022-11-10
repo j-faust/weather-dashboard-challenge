@@ -134,10 +134,14 @@ function buttonClickHistory(e) {
 
 // function that takes cities from the local storage and loads the most recent ones to the webpage
 function reloadToCityList() {
+
   let cityTextList = localStorage.getItem("weatherCities");
 
+  if(cityTextList == null || cityTextList == undefined || cityTextList == ""){
+    cityList = [];
+  } else{
   cityList = JSON.parse(cityTextList);
-
+  }
   loadCities();
 }
 
